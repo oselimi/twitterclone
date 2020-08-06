@@ -1,6 +1,7 @@
 <div class="content" >
   <div class="columns">
     <div class="column is-6 is-offset-3" id="dark-card" >
+      <%= render 'shared/errors', object: @user%>
       <%= form_with model: @user, local: true do |form|%>
         <div class="field">
             <%= form.label :first_name, class: "label", id:"dark-label"%>

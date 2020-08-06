@@ -1,0 +1,16 @@
+    <% if object.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          You have <%= pluralize(object.errors.count, "error") %>
+          in total:
+        </p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        <% object.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    </article>
+    <% end %>
