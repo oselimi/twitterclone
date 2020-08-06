@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user) }
-
     describe "should be present" do
       it { should validate_presence_of(:first_name) }
       it { should validate_presence_of(:last_name) }
@@ -26,6 +24,8 @@ RSpec.describe User, type: :model do
     end
 
     describe "when email format is invalid" do
+      let(:user) { create(:user) }
+
       it "should be invalid" do
         addresses = %w[user@user,com user_a_user.com example.user@example.]
         addresses.each do |invalid_address|
@@ -33,9 +33,7 @@ RSpec.describe User, type: :model do
           expect(user).not_to be_valid
         end
       end
-    end
 
-    describe "when email format is valid" do
       it "should be valid" do
         addresses = %w[example@example.com USER_EXample@live.com user+user@live.com ]
         addresses.each do |valid_address|
