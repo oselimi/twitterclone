@@ -2,26 +2,27 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { create(:user) }
-  before do
-    user
-  end
-
-    subject { user }
 
     describe "should be present" do
       it { should validate_presence_of(:first_name) }
       it { should validate_presence_of(:last_name) }
       it { should validate_presence_of(:email) }
+      it { should validate_presence_of(:password) }
     end
-
-    describe "email should be uniqueness" do
-      it { should validate_uniqueness_of(:email) }
+    
+    describe "email should be uniqueness " do
+      #it { should validate_uniqueness_of(:email) }
+    end
+    
+    describe "should be has secure password" do
+      it { should have_secure_password }
     end
 
     describe "minimum or maximum length" do
-      it { should validate_length_of(:first_name).is_at_most(50) }
-      it { should validate_length_of(:last_name).is_at_most(50) }
-      it { should validate_length_of(:email).is_at_most(50) }
+      it { should validate_length_of(:first_name).is_at_most(User::MAXIMUM_LENGTH_OF_FIRST_NAME) }
+      it { should validate_length_of(:last_name).is_at_most(User::MAXIMUM_LENGTH_OF_LAST_NAME) }
+      it { should validate_length_of(:email).is_at_most(User::MAXIMUM_LENGTH_OF_EMAIL) }
+      it { should validate_length_of(:password).is_at_least(User::MINUMUM_LENGTH_OF_PASSWORD)}
     end
 
     describe "when email format is invalid" do
