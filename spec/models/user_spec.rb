@@ -1,13 +1,53 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-    describe "Should be present" do
+  let(:user) { create(:user) }
+  before do
+    user
+  end
+
+    subject { user }
+
+    describe "should be present" do
       it { should validate_presence_of(:first_name) }
       it { should validate_presence_of(:last_name) }
       it { should validate_presence_of(:email) }
     end
 
-    describe "Email should be uniqueness" do
+    describe "email should be uniqueness" do
       it { should validate_uniqueness_of(:email) }
+    end
+
+    describe "minimum or maximum length" do
+      it { should validate_length_of(:first_name).is_at_most(50) }
+      it { should validate_length_of(:last_name).is_at_most(50) }
+      it { should validate_length_of(:email).is_at_most(50) }
+    end
+
+    describe "when email format is invalid" do
+      it "should be invalid" do
+        addresses = %w[user@user,com user_a_user.com example.user@example.]
+        addresses.each do |invalid_address|
+          user.email = invalid_address
+          expect(user).not_to be_valid
+        end
+      end
+    end
+
+    describe "when email format is valid" do
+      it "should be valid" do
+        addresses = %w[example@example.com USER_EXample@live.com user+user@live.com ]
+        addresses.each do |valid_address|
+          user.email = valid_address
+          expect(user).to be_valid
+        end
+      end
+    end
+
+    describe "when email address is already taken" do      
+      it "should donwcase before save" do
+        allen = create(:user, email: "EXAMPLE@LIVE.com" )
+        expect(allen.email).to eq 'example@live.com'
+      end
     end
 end
