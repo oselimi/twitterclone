@@ -1,0 +1,26 @@
+<div class="content" >
+  <div class="columns">
+    <div class="column is-6 is-offset-3" id="dark-card" >
+      <%= form_with scope: :session, url: login_path, local: true do |form|%>
+        <div class="field">
+            <%= form.label :email, class: "label" , id:"dark-label" %>
+          <div class="control">
+            <%= form.email_field :email, class: "input", placeholder: "Add your email" %>
+          </div>
+        </div>
+
+        <div class="field">
+            <%= form.label :password, class: "label" , id:"dark-label" %>
+          <div class="control">
+            <%= form.password_field :password, class: "input", placeholder: "Add your password" %>
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <%= form.submit "Login", class: "button is-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
