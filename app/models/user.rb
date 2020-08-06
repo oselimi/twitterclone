@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
     before_save :email_downcase
 
+    has_many :articles, dependent: :destroy
+
     has_secure_password
 
     validates :first_name, presence: true, length: { maximum: MAXIMUM_LENGTH_OF_FIRST_NAME }
